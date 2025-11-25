@@ -1,16 +1,3 @@
-import csv
-
-inventory = []
-
-def read():
-    with open('data_inventory.csv', mode='r', newline='') as file_csv:
-        read_csv = csv.reader(file_csv)
-        for fila in read_csv:
-            print(fila)
-
-def write():
-    with open('data_inventory.csv', mode='w', newline='') as file_csv:
-        write_csv = csv.writer(file_csv)
-
-        write_csv.writerow(["name","Price","Quantity"])
-        write_csv.writerows(inventory)
+inventory = [{"name" : "Rice", "Price" : 12000.0, "Quantity" : 10},
+            {"name" : "Jabon rey", "Price" : 7500.0, "Quantity" : 18},
+            {"name" : "Bread", "Price" : 7000.0, "Quantity" : 15}]

@@ -1,3 +1,5 @@
+import csv
+
 new_inventory = []
 
 # Añadir producto.
@@ -123,7 +125,7 @@ def update_product():
                     continue
             break
 
-# Eliminar producto.
+# Delete product.
 def remove_product():
     attemps = 0
     flag_0 = True
@@ -164,7 +166,7 @@ def remove_product():
                         continue
     return new_inventory
 
-# Estadísticas del inventario.
+# Stats inventory.
 def stats_inventory():
     if not new_inventory:
         print("\nInvntory empty, please charge any product.")
@@ -184,5 +186,24 @@ Max product stock: {max_stock["name"].capitalize()} with {max_stock["quantity"]}
 {("=" * 70)}
 """)
 
-add_product()
-stats_inventory()
+#Load CSV (Inventory).
+def load():
+    with open('data_inventory.csv', mode='r', newline='') as file_csv:
+        load = csv.DictReader(file_csv)
+        for prod in load:
+            prod["price"] = float(prod["price"])
+            prod["quantity"] = int(prod["quantity"])
+            new_inventory.append(prod)
+
+    return new_inventory
+
+# Update CSV (Inventory).
+def update():
+        if not new_inventory:
+            print("\nInventory is empty, nothing to update.")
+        else:
+            with open('data_inventory.csv', mode='w', newline='', encoding='utf-8') as file_csv:
+                category = ["name", "Price", "Quantity"]
+                update = csv.DictWriter(file_csv, fieldnames=category)
+                update.writeheader()
+                update.writerows(new_inventory)
